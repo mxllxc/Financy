@@ -1,7 +1,13 @@
 import logoImg from '../../assets/Logo.png';
 import { Container, Content, Logo } from './styles';
 
-export function Header(){
+interface HeaderProps {
+    onOpenModal: () => void;
+}
+
+export function Header({ onOpenModal }: HeaderProps){
+
+
     return(
         <Container>
             <Content>
@@ -9,9 +15,11 @@ export function Header(){
             <img src={logoImg} alt="financy" />
             <h1>Financy</h1>
             </Logo>
-            <button type="button">
+            <button type="button" onClick={onOpenModal}>
                 Nova transação
             </button>
+
+
 
             </Content>
 
