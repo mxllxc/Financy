@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react"
-import { api } from "../../service/api";
+import { useTransactions } from "../../Hooks/useTransaction";
 import { Container } from "./styles"
 
-interface Transaction {
-    id: number;
-    title: string;
-    category: string;
-    type: string;
-    amound: number;
-    created: string;
-}
 
 export function Table(){
 
-    const [transaction, setTransaction] = useState<Transaction[]>([]);
+    const { transactions } = useTransactions(); // Tambem pode ser com useContext :)
 
-    useEffect(() => {
-        api.get("/transaction")
-        .then(response => setTransaction(response.data.transactions))
-    }, []);
 
     return(
         <Container>
@@ -32,7 +19,7 @@ export function Table(){
                     </tr>
                 </thead>
                 <tbody>
-                    {transaction.map(t => {
+                    {transactions.map(t => {
                         return(
                             <tr key={t.id}>
                                 <td>{t.title}</td>
@@ -43,7 +30,7 @@ export function Table(){
                                         currency: 'BRL'
                                     }).format(t.amound)}
                                     </td>
-                                <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(t.amound))}</td>
+                                <td>{new Intl.DateTimeFormat('pt-BR').format(new Date())}</td>
                             </tr>
                         )
                     })}
